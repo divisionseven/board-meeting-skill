@@ -163,7 +163,7 @@ jobs:
           echo "✓ Tag matches package version: $PKG"
 
       - name: Publish
-        run: npm publish --access public --provenance
+        run: npm publish --access public
 
       # ── Summary ─────────────────────────────────────────────────
       - name: Publish summary
