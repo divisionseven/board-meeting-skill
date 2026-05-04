@@ -1,6 +1,6 @@
 {
   "name": "board-meeting-skill",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A structured multi-agent deliberation system for AI coding platforms. Stop letting tunnel vision win — Call a board meeting.",
   "type": "module",
   "keywords": [
