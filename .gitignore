@@ -1,0 +1,81 @@
+# Dependencies
+node_modules/
+yarn.lock
+pnpm-lock.yaml
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+.jest/
+
+# Build artifacts
+dist/
+build/
+*.tgz
+*.tar.gz
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Platform-specific generated files
+# (in case any platform creates cache/state files)
+.cache/
+.state/
+.ckb/
+
+# Board meeting records (if generated during testing)
+board_meetings/
+.opencode/
+.claude/
+.codex/
+.cursor/
+.windsurf/
+
+# Package manager
+.npm/
+.yarn/
+.pnpm-store/
+
+# Misc
+*.pid
+*.seed
+*.pid.lock

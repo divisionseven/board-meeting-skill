@@ -1,0 +1,37 @@
+# Repository Labels
+
+# Bug Reports
+bug: Bug report - needs triage
+enhancement: Enhancement request
+documentation: Documentation improvements
+duplicate: Duplicate issue
+good first issue: Good first issue
+help wanted: Help wanted
+invalid: Invalid report
+question: Question
+wontfix: Won't fix
+# Feature Requests
+feature: New feature or enhancement
+# Priority
+critical: Critical priority
+high: High priority
+medium: Medium priority
+low: Low priority
+# Status
+in-progress: In progress
+blocked: Blocked
+needs-design: Needs design
+needs-repro: Needs reproduction
+needs-info: Needs more information
+# Type
+bug: Bug
+enhancement: Enhancement
+question: Question
+documentation: Documentation
+# Component
+installation: Installation issues
+documentation: Documentation
+platform-specific: Platform-specific issues
+templates: Template issues
+agents: Agent file issues
+workflows: Workflow issues

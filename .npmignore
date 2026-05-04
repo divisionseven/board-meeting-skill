@@ -1,0 +1,7 @@
+# Published package includes only what's needed to install the skill.
+# See the `files` field in package.json for the allowlist.
+
+.github/
+docs/
+*.zip
+.DS_Store

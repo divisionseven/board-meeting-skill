@@ -1,0 +1,47 @@
+{
+  "name": "board-meeting-skill",
+  "version": "1.0.0",
+  "description": "A structured multi-agent deliberation system for AI coding platforms. Stop letting tunnel vision win — Call a board meeting.",
+  "type": "module",
+  "keywords": [
+    "ai",
+    "agents",
+    "subagents",
+    "opencode",
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "codex",
+    "skill",
+    "multi-agent",
+    "board-meeting"
+  ],
+  "author": "divisionseven",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/divisionseven/board-meeting-skill.git"
+  },
+  "homepage": "https://github.com/divisionseven/board-meeting-skill#readme",
+  "bin": {
+    "board-meeting-skill": "./bin/install.js"
+  },
+  "files": [
+    "bin/",
+    "opencode/",
+    "claude-code/",
+    "codex/",
+    "cursor/",
+    "windsurf/"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "kleur": "^4.1.5",
+    "prompts": "^2.4.2"
+  },
+  "scripts": {
+    "test": "node tests/suite.js"
+  }
+}

@@ -1,0 +1,171 @@
+---
+description: >
+  Convene a structured multi-agent "Board Meeting" for any complex technical
+  task. Triggered when the agent encounters: complex architectural decisions,
+  major refactors, ambiguous technical strategy, new module design, multi-system
+  integrations, performance bottlenecks, security design decisions, data schema
+  decisions, or any task scoring ≥5/10 on complexity. Also triggered by user
+  phrases like "call a board meeting", "get the board together", "I want
+  multiple perspectives on this", or "run this through the board".
+alwaysApply: false
+---
+
+# The Board Meeting Skill
+
+This rule defines a structured multi-agent review protocol powered by 11
+specialized personas. When triggered, the Board Chairman orchestrates the full
+meeting lifecycle: pre-flight, folder setup, parallel board sessions, and final
+synthesis.
+
+---
+
+## Research Foundation
+
+**Scott E. Page — _The Diversity Bonus_:** Groups with non-redundant cognitive
+toolkits consistently outperform groups of individually high performers on
+complex tasks. Overlapping expertise creates overlapping blind spots.
+
+**Juliet Bourke — _Which Two Heads Are Better Than One?_:** Six Dimensions of
+Approach (outcomes, options, people, process, evidence, risk) are rarely all
+represented in technical decision-making.
+
+**Architecture Review Board (ARB) Practice:** Reviewing decisions before
+implementation reduces rework. Diverse representation surfaces issues
+homogeneous groups miss.
+
+---
+
+## When to Call a Board Meeting
+
+Score ≥5/10 on ANY of:
+
+| Dimension       | ≥5 means...                                                       |
+| --------------- | ----------------------------------------------------------------- |
+| Scope           | Touches multiple modules, systems, or data flows                  |
+| Ambiguity       | Requirements are unclear or could be interpreted multiple ways    |
+| Irreversibility | The decision will be hard or expensive to undo                    |
+| Novelty         | This is not a pattern already established in the codebase         |
+| Risk Surface    | Security, performance, data integrity, or reliability is at stake |
+| Duration        | Estimated >4 hours of implementation time                         |
+
+---
+
+## The 10 Board Members + Chairman
+
+| #    | Codename             | Lens                                                         | Inspired By     |
+| ---- | -------------------- | ------------------------------------------------------------ | --------------- |
+| —    | **The Chairman**     | Orchestration, synthesis, and final recommendation           | Charlie Munger  |
+| 01   | **The Architect**    | Systems structure, scalability, long-term design integrity   | Martin Fowler   |
+| 02   | **The Red Teamer**   | Adversarial thinking, threat modeling, attack surface        | Bruce Schneier  |
+| 03   | **The Optimizer**    | Performance, algorithmic complexity, resource utilization    | Donald Knuth    |
+| 04   | **The Advocate**     | User/developer experience, ergonomics, product value         | Paul Graham     |
+| 05   | **The Contrarian**   | First-principles challenge, assumption-busting, alternatives | Richard Feynman |
+| 06   | **The Custodian**    | Technical debt, maintainability, code health, longevity      | Ward Cunningham |
+| 07   | **The Data Steward** | Data flows, schemas, integrity, migrations, state            | Joe Hellerstein |
+| 08   | **The Chaos Agent**  | Failure modes, edge cases, resilience, observability         | Jesse Robbins   |
+| 09   | **The Operator**     | Deployment, CI/CD, monitoring, operational burden, SRE       | Gene Kim        |
+| 10   | **The Minimalist**   | Simplicity, YAGNI, over-engineering watchdog, clarity        | Rob Pike        |
+
+Individual persona rules are in `.cursor/rules/board-members/`.
+
+---
+
+## Cursor Setup Notes
+
+In Cursor, the Board Meeting system uses two rule types:
+
+1. **This file** (`board-meeting.mdc`) — Agent-requested rule. Cursor's AI will
+   apply it when the task matches the description.
+
+2. **Board member rules** (`.cursor/rules/board-members/*.mdc`) — Agent-
+   requested rules applied to each member's context when running parallel
+   subagent tasks.
+
+3. **Template reference files** (`.cursor/rules/board-meeting/templates/`) —
+   Markdown files referenced during the meeting for consistent output format.
+
+Cursor's Agent mode supports parallel subagent spawning. The Chairman
+orchestrates this: "Spawn one agent per board member simultaneously."
+
+---
+
+## Board Meeting Protocol
+
+### Phase 0: Chairman Pre-Flight
+
+The Chairman (persona defined in `board-members/board-chairman.mdc`) runs
+pre-flight. In Cursor Agent mode, activate the Chairman rule:
+`@board-chairman` or instruct: "Act as the Board Chairman and run the
+Board Meeting pre-flight for this task."
+
+The Chairman will:
+1. Score the task on all 6 complexity dimensions
+2. Read all relevant context and code files
+3. Ask for any missing information
+4. Draft the Board Meeting Directives Report using Template 01
+5. Present it for your approval
+
+### Phase 0b: Setup
+
+After approval, the Chairman creates:
+```
+board_meetings/BM_{task}_{datetime}/
+├── directives_report.md
+├── session_1/
+└── session_2/
+```
+
+### Phase 1: First Session (Parallel)
+
+Chairman spawns all 10 board members simultaneously. Each reads the Directives
+Report and writes their First Session Response Report (Template 02) to their
+designated file in `session_1/`.
+
+### Phase 2: Second Session (Parallel)
+
+Each member reads all Session 1 reports, then writes their Second Session Final
+Thoughts Report (Template 03) to `session_2/`.
+
+### Phase 3: Chairman's Synthesis
+
+The Chairman reads all 20 reports and writes the Final Meeting Synthesis Report
+(Template 04) to `chairman_final_report.md`.
+
+### Phase 4: Handoff
+
+The Chairman presents the Executive Summary and asks how to proceed.
+
+---
+
+## Templates
+
+Located in `.cursor/rules/board-meeting/templates/`:
+
+- `01-directives-report.md` — Board Meeting brief (Chairman, Phase 0)
+- `02-first-session.md` — Session 1 report structure (all 10 members)
+- `03-second-session.md` — Session 2 report structure (all 10 members)
+- `04-chairman-synthesis.md` — Final synthesis structure (Chairman, Phase 3)
+
+---
+
+## Folder Structure
+
+```
+board_meetings/
+└── BM_{task}_{datetime}/
+    ├── directives_report.md
+    ├── session_1/
+    │   ├── architect_session_1.md
+    │   ├── red_teamer_session_1.md
+    │   ├── optimizer_session_1.md
+    │   ├── advocate_session_1.md
+    │   ├── contrarian_session_1.md
+    │   ├── custodian_session_1.md
+    │   ├── data_steward_session_1.md
+    │   ├── chaos_agent_session_1.md
+    │   ├── operator_session_1.md
+    │   └── minimalist_session_1.md
+    ├── session_2/
+    │   └── [same 10 files, _session_2.md]
+    └── chairman_final_report.md
+```
