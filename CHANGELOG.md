@@ -9,6 +9,8 @@ and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-05-04
+
 ## Added
 
 - Add file backup generation to `install.js` with conflict preview for additional overwrite protection
