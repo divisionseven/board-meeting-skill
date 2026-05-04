@@ -9,6 +9,12 @@ and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## Changed
+
+- Changed README links to use an alias tree
+- Connect README badges to doc bookmarks
+- Replace ASCII tables with markdown tables on README for dynamic scaling on mobile
+
 ## [1.0.1] — 2026-05-03
 
 ### Changed

@@ -12,13 +12,13 @@
 *A structured multi-agent deliberation system for AI coding platforms.*
 *Before your agent writes a single line of code on anything complex, convene the board.*
 
-![Sessions](https://img.shields.io/badge/Sessions-2%20Rounds%20%2B%20Final%20Report-darkgreen?style=plastic&color=black)
-![Board Members](https://img.shields.io/badge/Board%20Members-10%20Specialists%20%2B%20Chairman-gold?style=plastic&color=black)
-![Platforms](https://img.shields.io/badge/Platforms-OpenCode%20%7C%20Claude%20Code%20%7C%20Codex%20%7C%20Cursor%20%7C%20Windsurf-blueviolet?style=plastic&color=black)
+[![Sessions][sessions-badge-icon]][sessions-badge-link]
+[![Board Members][board-members-badge-icon]][board-members-badge-link]
+[![Platforms][platforms-badge-icon]][platforms-badge-link]
 
-![License](https://img.shields.io/badge/License-MIT-blue.svg?logo=open-source-initiative&logoColor=white&style=plastic&color=black)
-![Release](https://img.shields.io/github/v/release/divisionseven/board-meeting-skill?style=plastic&color=black&logo=github&logoColor=white&label=Release)
-![Build](https://img.shields.io/github/actions/workflow/status/divisionseven/board-meeting-skill/ci.yml?branch=main&logo=github&style=plastic&color=black&logoColor=white&label=Build)
+[![License][license-badge-icon]][license-badge-link]
+[![Release][release-badge-icon]][release-badge-link]
+[![Build][build-badge-icon]][build-badge-link]
 
 </div>
 
@@ -32,7 +32,9 @@ That's it. The installer asks which platform you are on, whether you want a
 project-scoped or global install, and copies exactly the right files to exactly
 the right places. No manual steps.
 
-Supports **OpenCode**, **Claude Code**, **Codex**, **Cursor**, and **Windsurf**.
+Supports: **OpenCode**, **Claude Code**, **Codex**, **Cursor**, and **Windsurf**.
+
+*[View npm page &rarr;][npm-package-link]*
 
 > [!Note]
 > **Want to install it manually instead?**
@@ -91,24 +93,19 @@ that makes the difference between a good decision and a great one.
 Eleven agents. Eleven distinct cognitive lenses. Grounded in the real-world
 intellectual frameworks of their inspirations.
 
-```
-┌──────────────────┬─────────────────────────────────┬─────────────────┐
-│ ROLE             │ LENS                            │ INSPIRED BY     │
-├──────────────────┼─────────────────────────────────┼─────────────────┤
-│ Board Chairman   │ Orchestration & synthesis       │ Charlie Munger  │
-├──────────────────┼─────────────────────────────────┼─────────────────┤
-│ The Architect    │ Structure & long-term design    │ Martin Fowler   │
-│ The Red Teamer   │ Threats & attack surface        │ Bruce Schneier  │
-│ The Optimizer    │ Performance & complexity        │ Donald Knuth    │
-│ The Advocate     │ UX, ergonomics & product value  │ Paul Graham     │
-│ The Contrarian   │ First principles & assumptions  │ Richard Feynman │
-│ The Custodian    │ Tech debt & maintainability     │ Ward Cunningham │
-│ The Data Steward │ Data flows, schemas & integrity │ Joe Hellerstein │
-│ The Chaos Agent  │ Failure modes & resilience      │ Jesse Robbins   │
-│ The Operator     │ Deployment & ops burden         │ Gene Kim        │
-│ The Minimalist   │ Simplicity & YAGNI              │ Rob Pike        │
-└──────────────────┴─────────────────────────────────┴─────────────────┘
-```
+| ROLE             | LENS                            | INSPIRED BY     |
+| ---------------- | ------------------------------- | --------------- |
+| Board Chairman   | Orchestration & synthesis       | Charlie Munger  |
+| The Architect    | Structure & long-term design    | Martin Fowler   |
+| The Red Teamer   | Threats & attack surface        | Bruce Schneier  |
+| The Optimizer    | Performance & complexity        | Donald Knuth    |
+| The Advocate     | UX, ergonomics & product value  | Paul Graham     |
+| The Contrarian   | First principles & assumptions  | Richard Feynman |
+| The Custodian    | Tech debt & maintainability     | Ward Cunningham |
+| The Data Steward | Data flows, schemas & integrity | Joe Hellerstein |
+| The Chaos Agent  | Failure modes & resilience      | Jesse Robbins   |
+| The Operator     | Deployment & ops burden         | Gene Kim        |
+| The Minimalist   | Simplicity & YAGNI              | Rob Pike        |
 
 Each board member is a fully developed AI agent with its own philosophy,
 analytical framework, and vigilance checklist. They are not thin wrappers
@@ -183,23 +180,23 @@ evidence-backed recommendations.
 
 The Chairman automatically calls a meeting when a task scores **5/10 or higher on ANY** of these dimensions. You can also trigger one manually at any time.
 
-```
-┌─────────────────┬──────────────────────────────────────────────────┐
-│ DIMENSION       │ TRIGGERS AT 5/10 WHEN...                         │
-├─────────────────┼──────────────────────────────────────────────────┤
-│ Scope           │ Touches multiple modules, systems or data flows  │
-│ Ambiguity       │ Requirements unclear or multi-interpretable      │
-│ Irreversibility │ Hard or expensive to undo                        │
-│ Novelty         │ Not an established pattern in this codebase      │
-│ Risk Surface    │ Security, performance or data integrity at stake │
-│ Duration        │ Estimated > 4 hours of implementation time       │
-└─────────────────┴──────────────────────────────────────────────────┘
-```
+| DIMENSION       | TRIGGERS AT 5/10 WHEN...                         |
+| --------------- | ------------------------------------------------ |
+| Scope           | Touches multiple modules, systems or data flows  |
+| Ambiguity       | Requirements unclear or multi-interpretable      |
+| Irreversibility | Hard or expensive to undo                        |
+| Novelty         | Not an established pattern in this codebase      |
+| Risk Surface    | Security, performance or data integrity at stake |
+| Duration        | Estimated > 4 hours of implementation time       |
 
-You can also trigger a board meeting directly at any time:
+### You can also trigger a board meeting directly at any time:
 
-> *"Call a board meeting on this"*
+Example Invocations:
+
+> *"Call a board meeting"*
+
 > *"I want the board's perspective before we proceed"*
+
 > *"Run this through the board"*
 
 **When in doubt, call the meeting.** The cost of 20 minutes of deliberation is
@@ -346,8 +343,25 @@ MIT — see [LICENSE](LICENSE).
 
 <div align="center">
 
-### *Built on the intellectual frameworks of:*
+*Built on the intellectual frameworks of:*
 
-#### *Munger · Fowler · Schneier · Knuth · Graham · Feynman · Cunningham · Hellerstein · Robbins · Kim · Pike*
+*Munger · Fowler · Schneier · Knuth · Graham · Feynman · Cunningham · Hellerstein · Robbins · Kim · Pike*
 
 </div>
+
+<!-- Header Badge Icons -->
+[sessions-badge-icon]: https://img.shields.io/badge/Sessions-2%20Rounds%20%2B%20Final%20Report-darkgreen?style=plastic&color=black
+[board-members-badge-icon]: https://img.shields.io/badge/Board%20Members-10%20Specialists%20%2B%20Chairman-gold?style=plastic&color=black
+[platforms-badge-icon]: https://img.shields.io/badge/Platforms-OpenCode%20%7C%20Claude%20Code%20%7C%20Codex%20%7C%20Cursor%20%7C%20Windsurf-blueviolet?style=plastic&color=black
+[license-badge-icon]: https://img.shields.io/badge/License-MIT-blue.svg?logo=open-source-initiative&logoColor=white&style=plastic&color=black
+[release-badge-icon]: https://img.shields.io/github/v/release/divisionseven/board-meeting-skill?style=plastic&color=black&logo=github&logoColor=white&label=Release
+[build-badge-icon]: https://img.shields.io/github/actions/workflow/status/divisionseven/board-meeting-skill/ci.yml?branch=main&logo=github&style=plastic&color=black&logoColor=white&label=Build
+
+<!-- Header Badge Links -->
+[sessions-badge-link]: #how-it-works
+[board-members-badge-link]: #the-board
+[platforms-badge-link]: #quick-install
+[license-badge-link]: LICENSE
+[release-badge-link]: https://github.com/divisionseven/board-meeting-skill/releases
+[build-badge-link]: https://github.com/divisionseven/board-meeting-skill/actions
+[npm-package-link]: https://www.npmjs.com/package/board-meeting-skill
