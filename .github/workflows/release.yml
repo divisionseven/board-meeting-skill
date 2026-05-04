@@ -1,25 +1,23 @@
 # ──────────────────────────────────────────────────────────────────────────────
 # .github/workflows/release.yml
 #
-# Tag-Based GitHub Release Creation
+# Single-Job Tag-Based Publishing
 # ──────────────────────────────────────────────────────────────────────────────
 # Trigger: Push a version tag — v1.2.3, v2.0.0-beta.1, etc.
 #
-# Pipeline:
+# Pipeline (jobs run in dependency order):
 #
 #   checkout ─► setup ─► npm ci ─► version check ─► build package
-#             ─► GitHub release
+#             ─► GitHub release ─► publish to npm
 #
 # Prerequisites:
 #   - Version in package.json must match the tag
 #   - CHANGELOG.md must have an entry for this version
 #   - All CI tests must pass before tagging (enforced by workflow rules)
 #
-# Note: npm publishing must be done manually after the release is created
-#
 # ──────────────────────────────────────────────────────────────────────────────
 
-name: Create GitHub Release
+name: 🚀 Publish Release
 
 on:
   push:
@@ -29,6 +27,7 @@ on:
 
 permissions:
   contents: write # required to create GitHub Releases
+  id-token: write # required for npm provenance
 
 concurrency:
   group: publish-${{ github.ref }}
@@ -60,8 +59,9 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: "npm"
+          registry-url: "https://registry.npmjs.org"
 
       # ── Set up Python ───────────────────────────────────────────────
       - name: Set up Python
@@ -129,13 +129,47 @@ jobs:
           files: "*.tgz"
           fail_on_unmatched_files: true
 
+  # ── Job: Publish to npm ─────────────────────────────────────────────────
+  # Publishes the package to npm. Runs after github-release succeeds.
+  publish:
+    name: Publish package to npm
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # read the repo
+      id-token: write # REQUIRED for OIDC trusted publishing
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify tag matches package version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG=$(node -p "require('./package.json').version")
+          if [ "$TAG" != "$PKG" ]; then
+            echo "❌ Tag $GITHUB_REF_NAME does not match package.json version $PKG"
+            exit 1
+          fi
+          echo "✓ Tag matches package version: $PKG"
+
+      - name: Publish
+        run: npm publish --access public --provenance
+
       # ── Summary ─────────────────────────────────────────────────
       - name: Publish summary
         run: |
           echo "---"
-          echo "✅ GitHub Release created: ${{ env.PROJECT_NAME }} ${{ github.ref_name }}"
+          echo "✅ Published: ${{ env.PROJECT_NAME }} ${{ github.ref_name }}"
           echo "🔗 GitHub Release: https://github.com/${{ env.REPO }}/releases/tag/${{ github.ref_name }}"
-          echo "📦 Package: board-meeting-skill-1.0.1.tgz"
-          echo "📝 To publish to npm manually:"
-          echo "   npm publish --provenance"
+          echo "📦 npm: https://www.npmjs.com/package/${{ env.PROJECT_NAME }}"
           echo "---"

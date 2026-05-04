@@ -9,6 +9,12 @@ and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## Fixed
+
+- Fix `package.json` formatting
+- Corrected npm publishing conflict in `release.yml`
+- Resolved shebang issue in `install.js`
+
 ## [1.1.0] - 2026-05-04
 
 ## Added

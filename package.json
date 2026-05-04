@@ -20,11 +20,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/divisionseven/board-meeting-skill.git"
+    "url": "git+https://github.com/divisionseven/board-meeting-skill.git"
   },
   "homepage": "https://github.com/divisionseven/board-meeting-skill#readme",
   "bin": {
-    "board-meeting-skill": "./bin/install.js"
+    "board-meeting-skill": "bin/install.js"
   },
   "files": [
     "bin/",
