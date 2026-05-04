@@ -12,8 +12,8 @@
 *A structured multi-agent deliberation system for AI coding platforms.*
 *Before your agent writes a single line of code on anything complex, convene the board.*
 
-![Board Members](https://img.shields.io/badge/Board%20Members-10%20Specialists%20%2B%20Chairman-gold?style=plastic&color=black)
 ![Sessions](https://img.shields.io/badge/Sessions-2%20Rounds%20%2B%20Final%20Report-darkgreen?style=plastic&color=black)
+![Board Members](https://img.shields.io/badge/Board%20Members-10%20Specialists%20%2B%20Chairman-gold?style=plastic&color=black)
 ![Platforms](https://img.shields.io/badge/Platforms-OpenCode%20%7C%20Claude%20Code%20%7C%20Codex%20%7C%20Cursor%20%7C%20Windsurf-blueviolet?style=plastic&color=black)
 
 ![License](https://img.shields.io/badge/License-MIT-blue.svg?logo=open-source-initiative&logoColor=white&style=plastic&color=black)
