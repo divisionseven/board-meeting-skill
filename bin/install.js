@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 
-// ─── Visual banner ──────────────────────────────────────────────────────────
+// ─── Visual Banner ──────────────────────────────────────────────────────────
 
 const BANNER = `
 ${kleur.red("╔══════════════════════════════════════════════════════════════════════╗")}
@@ -58,7 +58,7 @@ function printSummary(platform, targets) {
   console.log();
 }
 
-// ─── Platform config ─────────────────────────────────────────────────────────
+// ─── Platform Config ─────────────────────────────────────────────────────────
 
 const PLATFORMS = {
   opencode: {
@@ -126,38 +126,56 @@ const PLATFORMS = {
   },
 };
 
-// ─── File operations ──────────────────────────────────────────────────────────
+// ─── File Operations ──────────────────────────────────────────────────────────
 
 function copyDir(src, dest) {
-  const absSrc  = path.resolve(ROOT, src);
+  const absSrc = path.resolve(ROOT, src);
   const absDest = path.resolve(process.cwd(), dest.replace(/^~/, process.env.HOME));
 
   if (!fs.existsSync(absSrc)) {
     warn(`Source not found, skipping: ${src}`);
-    return { fileCount: 0 };
+    return { fileCount: 0, overwritten: 0, backedUp: 0 };
   }
 
   fs.mkdirSync(absDest, { recursive: true });
 
   let fileCount = 0;
+  let overwritten = 0;
+  let backedUp = 0;
 
   function recurse(currentSrc, currentDest) {
     const entries = fs.readdirSync(currentSrc, { withFileTypes: true });
+
     for (const entry of entries) {
-      const srcPath  = path.join(currentSrc,  entry.name);
+      const srcPath = path.join(currentSrc, entry.name);
       const destPath = path.join(currentDest, entry.name);
+
       if (entry.isDirectory()) {
         fs.mkdirSync(destPath, { recursive: true });
         recurse(srcPath, destPath);
       } else {
-        fs.copyFileSync(srcPath, destPath);
         fileCount++;
+
+        // Safety: Backup if file exists
+        if (fs.existsSync(destPath)) {
+          const backupDir = path.join(path.dirname(destPath), ".backup");
+          fs.mkdirSync(backupDir, { recursive: true });
+
+          const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+          const backupPath = path.join(backupDir, `${entry.name}.${timestamp}.bak`);
+
+          fs.copyFileSync(destPath, backupPath);
+          overwritten++;
+          backedUp++;
+        }
+
+        fs.copyFileSync(srcPath, destPath);
       }
     }
   }
 
   recurse(absSrc, absDest);
-  return { fileCount };
+  return { fileCount, overwritten, backedUp };
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -218,46 +236,88 @@ async function main() {
 
   const sources = scope === "project" ? config.sources : config.globalSources;
 
-  // 3. Confirm
+  // Preview phase
   console.log();
-  console.log(kleur.dim("  The following directories will be created:"));
-  console.log();
-  for (const s of sources) {
-    console.log(`    ${kleur.green("+")} ${s.to}/`);
-  }
+  console.log(kleur.bold().white("  Installation preview:"));
   console.log();
 
-  const { confirmed } = await prompts(
-    {
-      type:    "confirm",
-      name:    "confirmed",
-      message: "Proceed with installation?",
-      initial: true,
-    },
-    { onCancel }
-  );
+  let totalFiles = 0;
+  const conflicts = [];
+
+  for (const { from, to } of sources) {
+    const absSrc = path.resolve(ROOT, from);
+    const absDest = path.resolve(process.cwd(), to.replace(/^~/, process.env.HOME));
+
+    if (fs.existsSync(absSrc)) {
+      console.log(`    ${kleur.green("+")} ${to}/`);
+      // Simple conflict check
+      if (fs.existsSync(absDest)) {
+        const existing = fs.readdirSync(absDest);
+        const incoming = fs.readdirSync(absSrc);
+        const overlap = incoming.filter(f => existing.includes(f));
+        if (overlap.length > 0) {
+          conflicts.push({ to, files: overlap });
+        }
+      }
+    }
+  }
+
+  if (conflicts.length > 0) {
+    warn("Some files will be overwritten:");
+    for (const c of conflicts) {
+      console.log(`    ${kleur.yellow("→")} ${c.to}/`);
+      c.files.forEach(f => console.log(`        ${kleur.dim("•")} ${f}`));
+    }
+    console.log(kleur.dim("      Backups will be created in .backup/ folders"));
+  }
+
+  const { confirmed } = await prompts({
+    type: "confirm",
+    name: "confirmed",
+    message: conflicts.length > 0
+      ? "Proceed with installation (backups will be created)?"
+      : "Proceed with installation?",
+    initial: true,
+  }, { onCancel });
 
   if (!confirmed) {
     onCancel();
   }
 
-  // 4. Install
+  // Actual install
   console.log();
-  let totalFiles = 0;
+  let totalOverwritten = 0;
+  let totalBackedUp = 0;
   const installedDirs = [];
 
   for (const { from, to } of sources) {
     step(`Installing ${from} → ${to}/`);
-    const { fileCount } = copyDir(from, to);
-    totalFiles += fileCount;
+    const result = copyDir(from, to);
+    totalFiles += result.fileCount;
+    totalOverwritten += result.overwritten;
+    totalBackedUp += result.backedUp;
     installedDirs.push(to + "/");
-    success(`${fileCount} files installed`);
+    success(`${result.fileCount} files installed`);
   }
 
-  // 5. Summary
-  printSummary(config.label, { fileCount: totalFiles, dirs: installedDirs });
+  // Summary
+  console.log();
+  console.log(kleur.bold().white("  Installation complete."));
+  console.log();
+  console.log(`  ${kleur.dim("Platform:")}  ${kleur.bold(config.label)}`);
+  console.log(`  ${kleur.dim("Files:")}     ${kleur.bold(totalFiles)} total`);
 
-  console.log(kleur.bold().white("  Next steps:\n"));
+  if (totalOverwritten > 0) {
+    console.log(`  ${kleur.yellow("Overwritten:")} ${totalOverwritten} files (backups created)`);
+  }
+
+  console.log();
+  for (const dir of installedDirs) {
+    console.log(`  ${kleur.green("+")} ${dir}`);
+  }
+
+  // Next steps message
+  console.log(kleur.bold().white("\n  Next steps:\n"));
   console.log(`  ${kleur.cyan("1.")} Restart your ${config.label} session`);
   console.log(`  ${kleur.cyan("2.")} ${config.verify}`);
   console.log(`  ${kleur.cyan("3.")} ${config.trigger}`);

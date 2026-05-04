@@ -9,9 +9,13 @@ and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## Added
+
+- Add file backup generation to `install.js` with conflict preview for additional overwrite protection
+
 ## Changed
 
-- Changed README links to use an alias tree
+- Change README links to use an alias tree
 - Connect README badges to doc bookmarks
 - Replace ASCII tables with markdown tables on README for dynamic scaling on mobile
 

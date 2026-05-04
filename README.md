@@ -5,9 +5,9 @@
     <img src="https://raw.githubusercontent.com/divisionseven/board-meeting-skill/main/docs/assets/logo-white.svg" alt="board-meeting-skill-logo" width="600">
   </picture>
 
-# Board Meeting
+# Board Meeting Skill
 
-### You and your agent have tunnel vision. Let's fix that.
+### Your agents have tunnel vision. Let's fix that.
 
 *A structured multi-agent deliberation system for AI coding platforms.*
 *Before your agent writes a single line of code on anything complex, convene the board.*
@@ -199,7 +199,7 @@ Example Invocations:
 
 > *"Run this through the board"*
 
-**When in doubt, call the meeting.** The cost of 20 minutes of deliberation is
+**When in doubt, call the meeting.** The cost of ~15 minutes of focused deliberation is
 always lower than the cost of implementing the wrong solution.
 
 ---
@@ -309,7 +309,7 @@ board-meeting-skill/
 
 ## The Philosophy
 
-This is not a prompt chain. It is not a "think step by step" wrapper. It is a
+This is not a prompt chain. It is not a *"think step by step"* wrapper. It is a
 **deliberation protocol** — and the distinction matters.
 
 Prompt chains decompose a task and pipeline it through sequential steps. They
