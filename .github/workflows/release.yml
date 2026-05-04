@@ -136,8 +136,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read # read the repo
-      id-token: write # REQUIRED for OIDC trusted publishing
+      contents: read
 
     steps:
       - name: Checkout
@@ -164,6 +163,8 @@ jobs:
 
       - name: Publish
         run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # ── Summary ─────────────────────────────────────────────────
       - name: Publish summary
