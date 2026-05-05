@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/divisionseven/board-meeting-skill/main/docs/assets/logo-black.svg">
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/divisionseven/board-meeting-skill/main/docs/assets/logo-white.svg">
-    <img src="https://raw.githubusercontent.com/divisionseven/board-meeting-skill/main/docs/assets/logo-white.svg" alt="board-meeting-skill-logo" width="600">
+    <img src="https://raw.githubusercontent.com/divisionseven/board-meeting-skill/main/docs/assets/logo-black.svg" alt="board-meeting-skill-logo" width="600">
   </picture>
 
 # Board Meeting Skill
@@ -34,7 +34,7 @@ the right places. No manual steps.
 
 Supports: **OpenCode**, **Claude Code**, **Codex**, **Cursor**, and **Windsurf**.
 
-*[View npm page &rarr;][npm-package-link]*
+*[View npm package &rarr;][npm-package-link]*
 
 > [!Note]
 > **Want to install it manually instead?**
