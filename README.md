@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/divisionseven/board-meeting-skill/main/docs/assets/logo-black.svg">
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/divisionseven/board-meeting-skill/main/docs/assets/logo-white.svg">
-    <img src="https://raw.githubusercontent.com/divisionseven/board-meeting-skill/main/docs/assets/logo-black.svg" alt="board-meeting-skill-logo" width="600">
+    <img src="https://raw.githubusercontent.com/divisionseven/board-meeting-skill/main/docs/assets/board-meeting-skill-social-preview.png" alt="board-meeting-skill-logo" width="600">
   </picture>
 
 # Board Meeting Skill
@@ -12,11 +12,12 @@
 *A structured multi-agent deliberation system for AI coding platforms.*
 *Before your agent writes a single line of code on anything complex, convene the board.*
 
-[![Sessions][sessions-badge-icon]][sessions-badge-link]
+<!-- [![Sessions][sessions-badge-icon]][sessions-badge-link] -->
 [![Board Members][board-members-badge-icon]][board-members-badge-link]
 [![Platforms][platforms-badge-icon]][platforms-badge-link]
 
 [![License][license-badge-icon]][license-badge-link]
+[![NPM Downloads][npm-downloads-badge-icon]][npm-package-link]
 [![Release][release-badge-icon]][release-badge-link]
 [![Build][build-badge-icon]][build-badge-link]
 
@@ -32,9 +33,9 @@ That's it. The installer asks which platform you are on, whether you want a
 project-scoped or global install, and copies exactly the right files to exactly
 the right places. No manual steps.
 
-Supports: **OpenCode**, **Claude Code**, **Codex**, **Cursor**, and **Windsurf**.
+Installer Supports: **Claude Code**, **Codex**, **Cursor**, **OpenCode**, and **Windsurf**.
 
-*[View npm package &rarr;][npm-package-link]*
+*[View Package &rarr;][npm-package-link]*
 
 > [!Note]
 > **Want to install it manually instead?**
@@ -116,7 +117,7 @@ worth synthesizing.
 ## How It Works
 
 ```
-  You describe a complex task and say:
+  You describe a task or concept and say:
   "Call a board meeting" (or similar)
            │
            v
@@ -354,6 +355,7 @@ MIT — see [LICENSE](LICENSE).
 [board-members-badge-icon]: https://img.shields.io/badge/Board%20Members-10%20Specialists%20%2B%20Chairman-gold?style=plastic&color=black
 [platforms-badge-icon]: https://img.shields.io/badge/Platforms-OpenCode%20%7C%20Claude%20Code%20%7C%20Codex%20%7C%20Cursor%20%7C%20Windsurf-blueviolet?style=plastic&color=black
 [license-badge-icon]: https://img.shields.io/badge/License-MIT-blue.svg?logo=open-source-initiative&logoColor=white&style=plastic&color=black
+[npm-downloads-badge-icon]: https://img.shields.io/npm/dm/board-meeting-skill?style=plastic&logo=npm&logoColor=white&label=Downloads&color=black
 [release-badge-icon]: https://img.shields.io/github/v/release/divisionseven/board-meeting-skill?style=plastic&color=black&logo=github&logoColor=white&label=Release
 [build-badge-icon]: https://img.shields.io/github/actions/workflow/status/divisionseven/board-meeting-skill/ci.yml?branch=main&logo=github&style=plastic&color=black&logoColor=white&label=Build
 
